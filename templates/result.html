@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>Prediction Result</h1>
+        <p>Churn prediction outcome with probability score, risk classification, and customer profile summary.</p>
+    </div>
+</div>
+
+<div class="container">
+    {% if prediction %}
+    <div class="result-layout">
+        <div class="result-card">
+            <div class="result-status">
+                <div class="result-icon {% if prediction.status == 'Churn' %}churn{% else %}no-churn{% endif %}">
+                    {% if prediction.status == 'Churn' %}&#9888;{% else %}&#10003;{% endif %}
+                </div>
+                <h2>{{ prediction.status }}</h2>
+                <p class="status-label">Predicted churn status for this customer</p>
+
+                <div class="probability-ring">
+                    <svg width="160" height="160" viewBox="0 0 160 160">
+                        <circle class="ring-bg" cx="80" cy="80" r="70"></circle>
+                        <circle class="ring-fill {{ prediction.risk_level }}" cx="80" cy="80" r="70"
+                            data-pct="{{ prediction.probability }}"></circle>
+                    </svg>
+                    <div class="probability-value">
+                        {{ prediction.probability }}%
+                        <span>Churn Probability</span>
+                    </div>
+                </div>
+
+                <div class="risk-badge {{ prediction.risk_level }}">
+                    {% if prediction.risk_level == 'low' %}&#9679;{% elif prediction.risk_level == 'medium' %}&#9679;{% else %}&#9679;{% endif %}
+                    {{ prediction.risk_label }}
+                </div>
+            </div>
+        </div>
+
+        <div class="result-card">
+            <div class="result-details">
+                <h3>Customer Profile Summary</h3>
+                <div class="detail-row">
+                    <span class="label">Prediction ID</span>
+                    <span class="value">#{{ prediction.id }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Timestamp</span>
+                    <span class="value">{{ prediction.timestamp }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Gender</span>
+                    <span class="value">{{ prediction.customer.gender }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Tenure</span>
+                    <span class="value">{{ prediction.customer.tenure }} months</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Contract</span>
+                    <span class="value">{{ prediction.customer.contract }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Internet Service</span>
+                    <span class="value">{{ prediction.customer.internet_service }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Monthly Charges</span>
+                    <span class="value">${{ "%.2f"|format(prediction.customer.monthly_charges) }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Churn Probability</span>
+                    <span class="value">{{ prediction.probability }}%</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Risk Category</span>
+                    <span class="value">
+                        <span class="table-badge {{ prediction.risk_level }}">{{ prediction.risk_label }}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="result-actions">
+        <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">Predict Another Customer</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-lg">View Dashboard</a>
+    </div>
+
+    {% if history|length > 1 %}
+    <div class="history-card">
+        <h3>Previously Predicted Customers</h3>
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Probability</th>
+                    <th>Risk</th>
+                    <th>Contract</th>
+                    <th>Tenure</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in history %}
+                <tr>
+                    <td>#{{ item.id }}</td>
+                    <td>{{ item.timestamp }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.probability }}%</td>
+                    <td><span class="table-badge {{ item.risk_level }}">{{ item.risk_label }}</span></td>
+                    <td>{{ item.customer.contract }}</td>
+                    <td>{{ item.customer.tenure }} mo</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="no-result">
+        <h2>No Prediction Available</h2>
+        <p>Submit customer information through the prediction form to see churn results here.</p>
+        <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">Go to Prediction Form</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

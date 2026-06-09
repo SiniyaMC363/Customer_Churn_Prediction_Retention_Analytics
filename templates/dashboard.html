@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}BI Dashboard{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1>Retention Analytics Dashboard</h1>
+        <p>Power BI dashboard visualizations for customer churn trends, segmentation analysis, and retention KPIs.</p>
+    </div>
+</div>
+
+<div class="container">
+    {% if dashboard_images %}
+    <div class="dashboard-gallery">
+        {% for image in dashboard_images %}
+        <div class="dashboard-item">
+            <div class="dashboard-item-header">
+                <h3>{{ image.title }}</h3>
+                <span class="tag">Power BI</span>
+            </div>
+            <img src="{{ url_for('static', filename='dashboard/' + image.filename) }}"
+                alt="{{ image.title }} - Power BI Dashboard" loading="lazy">
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-state-icon">&#128202;</div>
+        <h3>Dashboard Screenshots Not Found</h3>
+        <p>Add your Power BI dashboard screenshots to the <strong>static/dashboard/</strong> folder (PNG, JPG, or WEBP). They will appear here automatically.</p>
+        <div style="margin-top: 1.5rem;">
+            <a href="{{ url_for('predict') }}" class="btn btn-primary">Run a Prediction</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="result-actions" style="margin-bottom: 3rem;">
+        <a href="{{ url_for('predict') }}" class="btn btn-primary">Predict Customer Churn</a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+
+<div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="Dashboard fullscreen view">
+</div>
+{% endblock %}

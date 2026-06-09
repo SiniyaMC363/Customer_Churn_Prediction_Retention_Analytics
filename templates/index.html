@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div>
+            <div class="hero-badge">&#9670; Machine Learning &amp; Business Intelligence</div>
+            <h1>Customer Churn Prediction and Retention Analytics</h1>
+            <p class="hero-subtitle">
+                Predict customer attrition, identify high-risk customers, and generate actionable retention insights using machine learning and business intelligence.
+            </p>
+            <div class="hero-actions">
+                <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">Run Churn Prediction</a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline-light btn-lg">View Dashboard</a>
+            </div>
+        </div>
+        <div class="hero-card">
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-value">ML</div>
+                    <div class="stat-label">Trained Classification Model</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">BI</div>
+                    <div class="stat-label">Power BI Dashboard</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">3-Tier</div>
+                    <div class="stat-label">Risk Classification</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">19+</div>
+                    <div class="stat-label">Customer Features</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Platform Capabilities</span>
+            <h2>Data-Driven Customer Retention</h2>
+            <p>A comprehensive analytics platform that combines predictive modeling with business intelligence to help organizations proactively reduce customer churn.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#128200;</div>
+                <h3>Churn Prediction Engine</h3>
+                <p>Leverage a trained machine learning model to predict whether a customer is likely to churn, with probability scores and risk categorization.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9888;</div>
+                <h3>Risk Segmentation</h3>
+                <p>Automatically classify customers into Low, Medium, and High risk tiers based on churn probability to prioritize retention efforts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128202;</div>
+                <h3>Power BI Dashboard</h3>
+                <p>Explore interactive business intelligence visualizations covering churn trends, customer segments, and key retention drivers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128101;</div>
+                <h3>Customer Profiling</h3>
+                <p>Analyze customer demographics, contract types, service usage, and billing patterns to understand churn behavior holistically.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#9881;</div>
+                <h3>End-to-End Pipeline</h3>
+                <p>From data preprocessing and feature engineering to model deployment — a complete data science workflow in production.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#128640;</div>
+                <h3>Actionable Insights</h3>
+                <p>Translate model outputs into business-ready recommendations for targeted retention campaigns and customer success strategies.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background: var(--white);">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">How It Works</span>
+            <h2>From Data to Decision</h2>
+            <p>A streamlined workflow designed for business analysts and data science teams alike.</p>
+        </div>
+        <div class="workflow-grid">
+            <div class="workflow-step">
+                <div class="step-number">1</div>
+                <h4>Enter Customer Data</h4>
+                <p>Input customer profile, service, and billing information through the prediction form.</p>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">2</div>
+                <h4>ML Model Scoring</h4>
+                <p>The trained model processes features and generates a churn probability score.</p>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">3</div>
+                <h4>Risk Assessment</h4>
+                <p>Results are categorized into Low, Medium, or High risk for quick decision-making.</p>
+            </div>
+            <div class="workflow-step">
+                <div class="step-number">4</div>
+                <h4>BI Analysis</h4>
+                <p>Explore the Power BI dashboard for deeper trends and portfolio-level insights.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="cta-banner">
+            <h2>Ready to Predict Customer Churn?</h2>
+            <p>Enter customer details and get instant churn predictions with probability scores and risk classification.</p>
+            <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg">Start Prediction Now</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
